@@ -57,4 +57,677 @@ body::before {
   display:flex;flex-direction:column;align-items:center;
   animation: g-rise .9s .1s cubic-bezier(.22,.68,0,1.1) both;
 }
-@keyframe
+@keyframes g-rise {
+  from { opacity:0; transform:translateY(14px); }
+  to   { opacity:1; transform:translateY(0); }
+}
+.gate-seal { width:68px;height:68px;margin-bottom:26px; }
+.gate-name {
+  font-family:'Cinzel',serif;
+  font-size:clamp(30px,6vw,60px);
+  font-weight:600;letter-spacing:.44em;text-indent:.44em;
+  color:var(--text);text-transform:uppercase;text-align:center;
+}
+.gate-motto { display:flex;align-items:center;gap:16px;margin-top:14px; }
+.gate-motto-rule { width:40px;height:.5px;background:rgba(184,149,90,.28); }
+.gate-motto span {
+  font-family:'Cormorant Garamond',serif;font-style:italic;
+  font-size:14px;font-weight:300;letter-spacing:.18em;color:rgba(184,149,90,.62);
+}
+.gate-panels {
+  position:relative;z-index:2;
+  display:flex;flex-direction:column;
+  align-items:center;width:100%;max-width:480px;padding:0 32px;
+}
+.gate-panel {
+  width:100%;
+  display:flex;flex-direction:column;align-items:center;
+  transition:opacity .55s cubic-bezier(.22,.68,0,1), transform .55s cubic-bezier(.22,.68,0,1);
+}
+.gate-panel.hidden {
+  opacity:0;transform:translateY(10px);pointer-events:none;
+  position:absolute;top:0;left:0;right:0;
+}
+#panelCode { gap:0;padding-top:48px; }
+.gate-divider {
+  width:100%;height:.5px;
+  background:linear-gradient(90deg,transparent,rgba(184,149,90,.2),transparent);
+  margin:36px 0;
+}
+.code-label {
+  font-family:'Cinzel',serif;font-size:6.5px;font-weight:400;
+  letter-spacing:.48em;text-indent:.48em;
+  color:var(--dim);text-transform:uppercase;text-align:center;
+  margin-bottom:22px;
+  animation:g-rise .9s .5s cubic-bezier(.22,.68,0,1.1) both;
+}
+.code-input-wrap {
+  position:relative;display:flex;align-items:center;width:100%;justify-content:center;
+  animation:g-rise .9s .62s cubic-bezier(.22,.68,0,1.1) both;
+}
+.code-input {
+  background:transparent;border:none;
+  border-bottom:.5px solid rgba(184,149,90,.28);
+  color:var(--text);
+  font-family:'Cinzel',serif;font-size:20px;font-weight:400;
+  letter-spacing:.42em;text-indent:.42em;
+  text-align:center;text-transform:uppercase;
+  width:280px;padding:14px 0;outline:none;cursor:none;
+  transition:border-color .4s;
+}
+.code-input::placeholder { color:rgba(184,149,90,.16);letter-spacing:.3em; }
+.code-input:focus { border-color:rgba(184,149,90,.55); }
+.code-underline {
+  position:absolute;bottom:0;left:50%;width:0;height:.5px;
+  background:var(--gold);transform:translateX(-50%);
+  transition:width .4s cubic-bezier(.22,.68,0,1);
+}
+.code-input:focus ~ .code-underline { width:280px; }
+.code-btn {
+  font-family:'Cinzel',serif;font-size:7px;font-weight:400;
+  letter-spacing:.44em;text-indent:.44em;
+  color:var(--gold);text-transform:uppercase;
+  border:.5px solid rgba(184,149,90,.28);background:transparent;
+  padding:14px 36px;cursor:none;
+  transition:background .4s,border-color .4s,color .4s;
+  margin-top:20px;
+  animation:g-rise .9s .74s cubic-bezier(.22,.68,0,1.1) both;
+}
+.code-btn:hover { background:rgba(184,149,90,.06);border-color:rgba(184,149,90,.55);color:var(--text); }
+.code-error {
+  font-family:'Jost',sans-serif;font-size:7.5px;font-weight:100;
+  letter-spacing:.26em;color:rgba(184,149,90,.4);
+  text-transform:uppercase;text-align:center;
+  min-height:14px;margin-top:14px;
+  opacity:0;transition:opacity .4s;
+}
+.code-error.show { opacity:1; }
+.no-code-link {
+  font-family:'Cormorant Garamond',serif;font-style:italic;
+  font-size:13px;font-weight:300;
+  color:rgba(62,52,40,.55);letter-spacing:.08em;
+  text-align:center;margin-top:40px;
+  cursor:none;transition:color .4s;
+  animation:g-rise .9s .9s cubic-bezier(.22,.68,0,1.1) both;
+  background:none;border:none;text-decoration:none;display:block;
+}
+.no-code-link:hover { color:rgba(184,149,90,.55); }
+.no-code-link em { font-style:normal;border-bottom:.5px solid rgba(184,149,90,.2);padding-bottom:1px; }
+#panelWait { padding-top:44px;gap:0; }
+.wait-heading {
+  font-family:'Cinzel',serif;font-size:clamp(16px,2.5vw,22px);
+  font-weight:600;letter-spacing:.16em;color:var(--text);text-align:center;
+  margin-bottom:16px;line-height:1.5;
+}
+.wait-body {
+  font-family:'Cormorant Garamond',serif;font-style:italic;
+  font-size:16px;font-weight:300;line-height:2.1;
+  color:var(--muted);letter-spacing:.05em;text-align:center;margin-bottom:36px;
+}
+.wait-form { width:100%;display:flex;flex-direction:column;gap:18px; }
+.wait-field { display:flex;flex-direction:column;gap:6px; }
+.wait-field-label {
+  font-family:'Cinzel',serif;font-size:5.5px;font-weight:400;
+  letter-spacing:.42em;text-indent:.42em;color:var(--dim);text-transform:uppercase;
+}
+.wait-input {
+  background:transparent;border:none;
+  border-bottom:.5px solid rgba(184,149,90,.22);
+  color:var(--text);font-family:'Jost',sans-serif;
+  font-size:12px;font-weight:100;letter-spacing:.1em;
+  padding:10px 0;outline:none;cursor:none;width:100%;transition:border-color .4s;
+}
+.wait-input::placeholder { color:rgba(184,149,90,.18); }
+.wait-input:focus { border-color:rgba(184,149,90,.5); }
+.wait-select {
+  background:transparent;border:none;
+  border-bottom:.5px solid rgba(184,149,90,.22);
+  color:var(--muted);font-family:'Jost',sans-serif;
+  font-size:11px;font-weight:100;letter-spacing:.1em;
+  padding:10px 0;outline:none;cursor:none;width:100%;
+  appearance:none;-webkit-appearance:none;transition:border-color .4s;
+}
+.wait-select:focus { border-color:rgba(184,149,90,.5); }
+.wait-select option { background:#08080f;color:var(--text); }
+.wait-btn {
+  font-family:'Cinzel',serif;font-size:7px;font-weight:400;
+  letter-spacing:.44em;text-indent:.44em;color:var(--gold);text-transform:uppercase;
+  border:.5px solid rgba(184,149,90,.28);background:transparent;
+  padding:14px;cursor:none;width:100%;
+  transition:background .4s,border-color .4s,color .4s;margin-top:6px;
+}
+.wait-btn:hover { background:rgba(184,149,90,.06);border-color:rgba(184,149,90,.5);color:var(--text); }
+.wait-success { display:none;text-align:center;padding:16px 0; }
+.wait-success.show { display:block; }
+.wait-success-name {
+  font-family:'Cinzel',serif;font-size:11px;font-weight:400;
+  letter-spacing:.32em;text-indent:.32em;color:var(--text);
+  text-transform:uppercase;margin-bottom:20px;
+}
+.wait-success-body {
+  font-family:'Cormorant Garamond',serif;font-style:italic;
+  font-size:16px;font-weight:300;line-height:2.2;color:var(--muted);letter-spacing:.05em;
+}
+.wait-success-rule { width:40px;height:.5px;background:rgba(184,149,90,.3);margin:24px auto; }
+.back-link {
+  font-family:'Cormorant Garamond',serif;font-style:italic;
+  font-size:12px;font-weight:300;color:rgba(62,52,40,.45);
+  letter-spacing:.06em;text-align:center;
+  background:none;border:none;cursor:none;transition:color .4s;margin-top:28px;display:block;
+}
+.back-link:hover { color:rgba(184,149,90,.45); }
+#site { display:none; }
+#site.visible { display:block; }
+nav {
+  position:fixed;top:0;left:0;right:0;z-index:100;
+  padding:26px 52px;display:flex;align-items:center;justify-content:space-between;transition:opacity .5s;
+}
+nav::after {
+  content:'';position:absolute;bottom:0;left:52px;right:52px;
+  height:.5px;background:linear-gradient(90deg,transparent,var(--gd),transparent);
+}
+.nav-logo { font-family:'Cinzel',serif;font-size:13px;font-weight:600;letter-spacing:.38em;text-indent:.38em;color:var(--text);text-decoration:none;text-transform:uppercase;cursor:none; }
+.nav-links { display:flex;gap:36px;list-style:none; }
+.nav-links a { font-family:'Jost',sans-serif;font-size:8px;font-weight:200;letter-spacing:.3em;text-indent:.3em;color:var(--muted);text-decoration:none;text-transform:uppercase;transition:color .4s;cursor:none; }
+.nav-links a:hover { color:var(--gold); }
+section { min-height:100vh;position:relative;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:120px 52px; }
+.rule-h { width:100%;max-width:560px;height:.5px;background:linear-gradient(90deg,transparent,var(--gd),transparent);margin:0 auto; }
+.diamond { width:6px;height:6px;background:rgba(184,149,90,.5);transform:rotate(45deg);margin:0 auto; }
+#hero { min-height:100vh;justify-content:center;overflow:hidden; }
+.strata-bg { position:absolute;inset:0;overflow:hidden; }
+.strata-bg svg { width:100%;height:100%;opacity:.04; }
+.bore-line { position:absolute;left:50%;top:0;width:.5px;background:linear-gradient(180deg,transparent 0%,var(--plat) 30%,var(--plat) 70%,transparent 100%);transform:translateX(-50%);height:100vh;opacity:.5; }
+.hero-content { position:relative;z-index:2;display:flex;flex-direction:column;align-items:center; }
+.hero-seal { width:80px;height:80px;margin-bottom:32px; }
+.hero-name { font-family:'Cinzel',serif;font-size:clamp(44px,8vw,88px);font-weight:600;letter-spacing:.42em;text-indent:.42em;color:var(--text);text-transform:uppercase;text-align:center;line-height:1; }
+.hero-motto { display:flex;align-items:center;gap:18px;margin-top:18px; }
+.motto-rule { width:48px;height:.5px;background:var(--gd); }
+.hero-motto span { font-family:'Cormorant Garamond',serif;font-style:italic;font-size:15px;font-weight:300;letter-spacing:.2em;color:rgba(184,149,90,.7); }
+.hero-depth { margin-top:48px;text-align:center; }
+.hero-depth-n { font-family:'Cinzel',serif;font-size:clamp(26px,4vw,38px);font-weight:400;letter-spacing:.18em;text-indent:.18em;color:var(--text);display:block;line-height:1; }
+.hero-depth-s { font-family:'Jost',sans-serif;font-size:7.5px;font-weight:100;letter-spacing:.4em;text-indent:.4em;color:var(--dim);text-transform:uppercase;display:block;margin-top:10px; }
+.scroll-cue { position:absolute;bottom:38px;left:50%;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:10px; }
+.scroll-cue span { font-family:'Jost',sans-serif;font-size:7px;font-weight:100;letter-spacing:.44em;text-indent:.44em;color:var(--dim);text-transform:uppercase; }
+.scroll-line { width:.5px;height:38px;background:linear-gradient(180deg,var(--gd),transparent);animation:sc-pulse 2s ease-in-out infinite; }
+@keyframes sc-pulse { 0%,100%{opacity:.3}50%{opacity:1} }
+.eyebrow { font-family:'Cinzel',serif;font-size:7px;font-weight:400;letter-spacing:.44em;text-indent:.44em;color:var(--gold);opacity:.65;text-transform:uppercase;margin-bottom:22px; }
+.section-heading { font-family:'Cinzel',serif;font-size:clamp(20px,3vw,30px);font-weight:600;letter-spacing:.12em;color:var(--text);margin-bottom:22px;line-height:1.4; }
+.section-body { font-family:'Cormorant Garamond',serif;font-style:italic;font-size:17px;font-weight:300;line-height:2.1;color:var(--muted);letter-spacing:.04em; }
+#claims { background:linear-gradient(180deg,var(--black) 0%,#08080e 50%,var(--black) 100%); }
+.claims-inner { max-width:1000px;width:100%;text-align:center; }
+.claims-eyebrow { font-family:'Cinzel',serif;font-size:7px;font-weight:400;letter-spacing:.44em;text-indent:.44em;color:var(--dim);text-transform:uppercase;margin-bottom:56px; }
+.claims-grid { display:grid;grid-template-columns:1fr 1px 1fr 1px 1fr;gap:0;align-items:start; }
+.claim-div { height:100%;background:linear-gradient(180deg,transparent,var(--gd),transparent);min-height:160px; }
+.claim { padding:0 44px; }
+.claim-n { font-family:'Cinzel',serif;font-size:clamp(24px,3vw,36px);font-weight:400;letter-spacing:.1em;color:var(--text);display:block;margin-bottom:10px; }
+.claim-l { font-family:'Cinzel',serif;font-size:7px;font-weight:400;letter-spacing:.36em;text-indent:.36em;color:var(--gold);opacity:.6;text-transform:uppercase;display:block;margin-bottom:16px; }
+.claim-b { font-family:'Cormorant Garamond',serif;font-style:italic;font-size:14px;font-weight:300;line-height:2;color:var(--muted);letter-spacing:.04em; }
+#order { background:linear-gradient(180deg,var(--black),#08080e 60%,var(--black)); }
+.order-inner { max-width:680px;width:100%;text-align:center; }
+.product-grid { display:grid;grid-template-columns:1fr 1fr 1fr;gap:1px;background:rgba(184,149,90,.1);margin-bottom:52px;border:.5px solid rgba(184,149,90,.1); }
+.product { background:var(--black);padding:32px 24px;text-align:center;cursor:none;transition:background .4s;position:relative; }
+.product:hover { background:#090910; }
+.product.selected { background:#0b0b14; }
+.product.selected::after { content:'';position:absolute;bottom:0;left:0;right:0;height:1px;background:var(--gold);opacity:.5; }
+.product-name { font-family:'Cinzel',serif;font-size:8.5px;font-weight:600;letter-spacing:.32em;text-indent:.32em;color:var(--text);text-transform:uppercase;margin-bottom:10px; }
+.product-desc { font-family:'Cormorant Garamond',serif;font-style:italic;font-size:12px;font-weight:300;color:var(--muted);letter-spacing:.04em;margin-bottom:18px;line-height:1.8; }
+.product-price { font-family:'Cinzel',serif;font-size:18px;font-weight:400;letter-spacing:.12em;color:var(--text); }
+.product-qty { font-family:'Jost',sans-serif;font-size:7px;font-weight:100;letter-spacing:.24em;color:var(--dim);text-transform:uppercase;display:block;margin-top:5px; }
+.order-form { display:flex;flex-direction:column;gap:20px;border:.5px solid rgba(184,149,90,.12);padding:36px 40px;text-align:left; }
+.order-form-title { font-family:'Cinzel',serif;font-size:7px;font-weight:400;letter-spacing:.44em;text-indent:.44em;color:var(--dim);text-transform:uppercase;margin-bottom:4px;text-align:center; }
+.form-row { display:grid;grid-template-columns:1fr 1fr;gap:16px; }
+.form-field { display:flex;flex-direction:column;gap:6px; }
+.form-field.full { grid-column:1/-1; }
+.field-label { font-family:'Cinzel',serif;font-size:5.5px;font-weight:400;letter-spacing:.4em;text-indent:.4em;color:var(--dim);text-transform:uppercase; }
+.field-input, .field-textarea { background:transparent;border:none;border-bottom:.5px solid rgba(184,149,90,.22);color:var(--text);font-family:'Jost',sans-serif;font-size:11px;font-weight:100;letter-spacing:.1em;padding:10px 0;outline:none;cursor:none;width:100%;transition:border-color .4s; }
+.field-input::placeholder,.field-textarea::placeholder { color:rgba(184,149,90,.18); }
+.field-input:focus,.field-textarea:focus { border-color:rgba(184,149,90,.5); }
+.field-textarea { resize:none;height:72px;font-family:'Cormorant Garamond',serif;font-style:italic;font-size:13px; }
+.form-selection { font-family:'Cormorant Garamond',serif;font-style:italic;font-size:13px;font-weight:300;color:var(--muted);letter-spacing:.06em;padding:8px 0;border-bottom:.5px solid rgba(184,149,90,.1); }
+.form-selection strong { color:var(--text);font-style:normal;font-weight:400; }
+.submit-btn { font-family:'Cinzel',serif;font-size:7.5px;font-weight:400;letter-spacing:.44em;text-indent:.44em;color:var(--gold);text-transform:uppercase;border:.5px solid rgba(184,149,90,.3);background:transparent;padding:16px;cursor:none;width:100%;transition:background .4s,border-color .4s,color .4s;margin-top:8px; }
+.submit-btn:hover { background:rgba(184,149,90,.06);border-color:rgba(184,149,90,.5);color:var(--text); }
+.form-note { font-family:'Cormorant Garamond',serif;font-style:italic;font-size:11px;font-weight:300;color:var(--dim);letter-spacing:.06em;text-align:center;margin-top:4px; }
+.order-success { display:none;text-align:center;padding:52px 0; }
+.order-success.show { display:block; }
+.success-heading { font-family:'Cinzel',serif;font-size:22px;font-weight:600;letter-spacing:.18em;color:var(--text);margin-bottom:16px; }
+.success-body { font-family:'Cormorant Garamond',serif;font-style:italic;font-size:16px;font-weight:300;line-height:2;color:var(--muted); }
+#story { text-align:center; }
+.story-inner { max-width:520px; }
+.story-quote { font-family:'Cormorant Garamond',serif;font-style:italic;font-size:clamp(20px,3.5vw,28px);font-weight:300;line-height:1.9;color:var(--text);letter-spacing:.04em;margin:28px 0; }
+.story-sub { font-family:'Jost',sans-serif;font-size:8px;font-weight:100;letter-spacing:.36em;text-indent:.36em;color:var(--dim);text-transform:uppercase; }
+footer { padding:36px 52px;display:flex;justify-content:space-between;align-items:center;border-top:.5px solid rgba(184,149,90,.1); }
+.f-brand { font-family:'Cinzel',serif;font-size:10px;font-weight:600;letter-spacing:.36em;text-indent:.36em;color:var(--muted);text-transform:uppercase; }
+.f-url { font-family:'Jost',sans-serif;font-size:8px;font-weight:100;letter-spacing:.24em;color:var(--dim);text-decoration:none;transition:color .4s; }
+.f-url:hover { color:var(--gold); }
+.f-cert { font-family:'Jost',sans-serif;font-size:7px;font-weight:100;letter-spacing:.2em;color:rgba(62,52,40,.4);text-transform:uppercase; }
+.reveal { opacity:0;transform:translateY(22px);transition:opacity .9s cubic-bezier(.22,.68,0,1),transform .9s cubic-bezier(.22,.68,0,1); }
+.reveal.visible { opacity:1;transform:none; }
+.reveal-d1{transition-delay:.1s}.reveal-d2{transition-delay:.22s}.reveal-d3{transition-delay:.34s}.reveal-d4{transition-delay:.46s}
+.stats-row { display:flex;gap:48px;align-items:center;flex-wrap:wrap;justify-content:center; }
+.stat-div  { width:.5px;height:52px;background:var(--gd); }
+.stat      { text-align:center; }
+.stat-label{ font-family:'Cinzel',serif;font-size:7px;font-weight:400;letter-spacing:.36em;color:var(--dim);text-transform:uppercase;margin-bottom:8px; }
+.stat-n    { font-family:'Cinzel',serif;font-size:28px;font-weight:400;letter-spacing:.1em;color:var(--text); }
+.stat-sub  { font-family:'Jost',sans-serif;font-size:6.5px;font-weight:100;letter-spacing:.3em;color:var(--dim);text-transform:uppercase;margin-top:4px; }
+@media(max-width:760px){
+  nav{padding:20px 24px}nav::after{left:24px;right:24px}
+  section{padding:90px 24px}
+  .claims-grid{grid-template-columns:1fr;gap:48px}.claim-div{display:none}.claim{padding:0}
+  .product-grid{grid-template-columns:1fr}.order-form{padding:24px 20px}
+  .form-row{grid-template-columns:1fr}
+  footer{flex-direction:column;gap:14px;text-align:center}
+  .stats-row{gap:28px}.stat-div{display:none}
+}
+</style>
+</head>
+<body>
+<div class="cursor" id="cur"></div>
+<div class="cursor-ring" id="cur-ring"></div>
+<div id="gate">
+  <div class="gate-strata">
+    <svg viewBox="0 0 1440 900" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+      <line x1="0" y1="110" x2="1440" y2="110" stroke="rgba(184,149,90,1)" stroke-width=".6"/>
+      <line x1="0" y1="210" x2="1440" y2="210" stroke="rgba(184,149,90,1)" stroke-width=".8"/>
+      <path d="M0 320 Q360 308 720 320 Q1080 332 1440 320" fill="none" stroke="rgba(184,149,90,1)" stroke-width=".9"/>
+      <path d="M0 420 Q360 428 720 420 Q1080 412 1440 420" fill="none" stroke="rgba(184,149,90,1)" stroke-width="1"/>
+      <line x1="0" y1="500" x2="1440" y2="500" stroke="rgba(184,149,90,1)" stroke-width="1.1" stroke-dasharray="12 8"/>
+      <path d="M0 580 L200 578 L400 582 L600 578 L800 583 L1000 578 L1200 582 L1440 580" fill="none" stroke="rgba(184,149,90,1)" stroke-width="1.2"/>
+      <line x1="0" y1="650" x2="1440" y2="650" stroke="rgba(184,149,90,1)" stroke-width="1.4"/>
+      <line x1="0" y1="695" x2="1440" y2="695" stroke="rgba(184,149,90,1)" stroke-width="1.2"/>
+      <rect x="0" y="740" width="1440" height="160" fill="rgba(184,149,90,.055)"/>
+    </svg>
+  </div>
+  <div class="gate-bore"></div>
+  <div class="gate-panels">
+    <div class="gate-brand">
+      <svg class="gate-seal" viewBox="0 0 68 68" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <polygon points="62,23 47,6 21,6 6,23 6,45 21,62 47,62 62,45" stroke="rgba(184,149,90,.28)" stroke-width=".5"/>
+        <polygon points="57,26 45,12 23,12 11,26 11,42 23,56 45,56 57,42" stroke="rgba(184,149,90,.1)" stroke-width=".5"/>
+        <line x1="13" y1="29" x2="55" y2="29" stroke="rgba(184,149,90,.13)" stroke-width=".35"/>
+        <line x1="12" y1="34" x2="56" y2="34" stroke="rgba(184,149,90,.16)" stroke-width=".38"/>
+        <path d="M12 39 Q34 37 56 39" fill="none" stroke="rgba(184,149,90,.18)" stroke-width=".42"/>
+        <path d="M12 45 L21 44 L30 46 L34 44 L44 46 L53 44 L56 45" fill="none" stroke="rgba(184,149,90,.24)" stroke-width=".46"/>
+        <line x1="12" y1="51" x2="56" y2="51" stroke="rgba(184,149,90,.3)" stroke-width=".54"/>
+        <line x1="12" y1="56" x2="56" y2="56" stroke="rgba(184,149,90,.24)" stroke-width=".5"/>
+        <rect x="12" y="58" width="44" height="6" fill="rgba(184,149,90,.026)"/>
+        <line x1="34" y1="25" x2="34" y2="60" stroke="rgba(186,186,210,.42)" stroke-width=".6"/>
+        <line x1="31.5" y1="29" x2="36.5" y2="29" stroke="rgba(186,186,210,.2)" stroke-width=".38"/>
+        <line x1="31.5" y1="39" x2="36.5" y2="39" stroke="rgba(186,186,210,.2)" stroke-width=".38"/>
+        <line x1="31.5" y1="51" x2="36.5" y2="51" stroke="rgba(186,186,210,.2)" stroke-width=".38"/>
+        <circle cx="34" cy="60" r="5" fill="none" stroke="rgba(184,149,90,.08)" stroke-width=".5"/>
+        <circle cx="34" cy="60" r="3" fill="none" stroke="rgba(184,149,90,.2)" stroke-width=".5"/>
+        <line x1="28" y1="60" x2="40" y2="60" stroke="rgba(184,149,90,.3)" stroke-width=".4"/>
+        <line x1="34" y1="54" x2="34" y2="66" stroke="rgba(184,149,90,.3)" stroke-width=".4"/>
+        <circle cx="34" cy="60" r="1.4" fill="rgba(184,149,90,.88)"/>
+        <circle cx="20" cy="17" r=".7" fill="rgba(184,149,90,.2)"/>
+        <circle cx="48" cy="17" r=".7" fill="rgba(184,149,90,.2)"/>
+      </svg>
+      <h1 class="gate-name">Blackwell</h1>
+      <div class="gate-motto">
+        <div class="gate-motto-rule"></div>
+        <span>Ex Profundis Manat</span>
+        <div class="gate-motto-rule"></div>
+      </div>
+      <div style="margin:5px 0 0;display:flex;justify-content:center;">
+        <svg width="7" height="7" viewBox="0 0 8 8"><polygon points="4,0 8,4 4,8 0,4" fill="rgba(184,149,90,0.55)"/></svg>
+      </div>
+      <p style="font-family:'Cinzel',serif;font-size:6.5px;font-weight:400;letter-spacing:.38em;text-indent:.38em;color:rgba(62,52,40,.45);text-transform:uppercase;margin-top:8px;">Natural Mineral Water</p>
+    </div>
+    <div class="gate-panel" id="panelCode">
+      <div class="gate-divider"></div>
+      <p class="code-label">Enter your bottle code</p>
+      <div class="code-input-wrap">
+        <input class="code-input" id="codeInput" type="text" placeholder="· · · · · · · ·" maxlength="12" autocomplete="off" spellcheck="false"/>
+        <div class="code-underline"></div>
+      </div>
+      <p class="code-error" id="codeError">That code was not recognised</p>
+      <button class="code-btn" onclick="attemptUnlock()">Enter</button>
+      <button class="no-code-link" onclick="showWaitingRoom()">
+        I don't have a bottle yet &nbsp;—&nbsp; <em>leave my details</em>
+      </button>
+    </div>
+    <div class="gate-panel hidden" id="panelWait">
+      <div class="gate-divider"></div>
+      <div id="waitFormWrap">
+        <p class="wait-heading">To enter, you need<br>a Blackwell bottle.</p>
+        <p class="wait-body">If you don't have one yet,<br>leave your name.<br>We'll find you.</p>
+        <div class="wait-form">
+          <div class="wait-field">
+            <label class="wait-field-label">Your Name</label>
+            <input class="wait-input" id="wName" type="text" placeholder="First and last name"/>
+          </div>
+          <div class="wait-field">
+            <label class="wait-field-label">Email Address</label>
+            <input class="wait-input" id="wEmail" type="email" placeholder="you@example.com"/>
+          </div>
+          <div class="wait-field">
+            <label class="wait-field-label">How did you hear about Blackwell?</label>
+            <select class="wait-select" id="wSource">
+              <option value="">— Select —</option>
+              <option value="restaurant">Restaurant or hotel</option>
+              <option value="friend">A friend or colleague</option>
+              <option value="press">Press or editorial</option>
+              <option value="social">Social media</option>
+              <option value="event">An event</option>
+              <option value="other">Other</option>
+            </select>
+          </div>
+          <button class="wait-btn" onclick="submitWaitlist()">Leave My Details</button>
+        </div>
+      </div>
+      <div class="wait-success" id="waitSuccess">
+        <div style="width:.5px;height:40px;background:linear-gradient(180deg,transparent,var(--gd),transparent);margin:0 auto 24px;"></div>
+        <p class="wait-success-name" id="waitSuccessName"></p>
+        <div class="wait-success-rule"></div>
+        <p class="wait-success-body">We have your details.<br><br>When a bottle reaches you,<br>your code will be inside.<br><br>Welcome to the list.</p>
+        <div class="wait-success-rule"></div>
+      </div>
+      <button class="back-link" onclick="showCodePanel()">← I have a code</button>
+    </div>
+  </div>
+</div>
+<div id="site">
+  <nav id="nav">
+    <a href="#hero" class="nav-logo">Blackwell</a>
+    <ul class="nav-links">
+      <li><a href="#origin">Origin</a></li>
+      <li><a href="#claims">Purity</a></li>
+      <li><a href="#order">Order</a></li>
+    </ul>
+  </nav>
+  <section id="hero">
+    <div class="strata-bg">
+      <svg viewBox="0 0 1440 900" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+        <line x1="0" y1="120" x2="1440" y2="120" stroke="rgba(184,149,90,1)" stroke-width=".6"/>
+        <line x1="0" y1="200" x2="1440" y2="200" stroke="rgba(184,149,90,1)" stroke-width=".7"/>
+        <path d="M0 290 Q360 280 720 290 Q1080 300 1440 290" fill="none" stroke="rgba(184,149,90,1)" stroke-width=".8"/>
+        <path d="M0 370 Q240 375 480 370 Q720 365 960 370 Q1200 375 1440 370" fill="none" stroke="rgba(184,149,90,1)" stroke-width=".9"/>
+        <line x1="0" y1="450" x2="1440" y2="450" stroke="rgba(184,149,90,1)" stroke-width="1"/>
+        <line x1="0" y1="480" x2="1440" y2="480" stroke="rgba(184,149,90,1)" stroke-width=".8" stroke-dasharray="14 10"/>
+        <path d="M0 560 L180 558 L360 562 L540 558 L720 563 L900 558 L1080 562 L1260 558 L1440 560" fill="none" stroke="rgba(184,149,90,1)" stroke-width="1.1"/>
+        <line x1="0" y1="620" x2="1440" y2="620" stroke="rgba(184,149,90,1)" stroke-width="1.3"/>
+        <rect x="0" y="720" width="1440" height="180" fill="rgba(184,149,90,.05)"/>
+      </svg>
+    </div>
+    <div class="bore-line"></div>
+    <div class="hero-content">
+      <svg class="hero-seal" viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <polygon points="74,28 56,8 24,8 6,28 6,52 24,72 56,72 74,52" stroke="rgba(184,149,90,.28)" stroke-width=".5"/>
+        <polygon points="68,31 54,15 26,15 12,31 12,49 26,65 54,65 68,49" stroke="rgba(184,149,90,.1)" stroke-width=".5"/>
+        <line x1="14" y1="34" x2="66" y2="34" stroke="rgba(184,149,90,.13)" stroke-width=".35"/>
+        <line x1="13" y1="40" x2="67" y2="40" stroke="rgba(184,149,90,.16)" stroke-width=".38"/>
+        <path d="M13 46 Q40 44 67 46" fill="none" stroke="rgba(184,149,90,.18)" stroke-width=".42"/>
+        <path d="M13 52 L22 51 L32 53 L40 51 L52 53 L62 51 L67 52" fill="none" stroke="rgba(184,149,90,.24)" stroke-width=".46"/>
+        <line x1="13" y1="58" x2="67" y2="58" stroke="rgba(184,149,90,.3)" stroke-width=".54"/>
+        <line x1="13" y1="63" x2="67" y2="63" stroke="rgba(184,149,90,.24)" stroke-width=".5"/>
+        <rect x="13" y="66" width="54" height="8" fill="rgba(184,149,90,.028)"/>
+        <line x1="40" y1="30" x2="40" y2="70" stroke="rgba(186,186,210,.42)" stroke-width=".6"/>
+        <line x1="37.5" y1="34" x2="42.5" y2="34" stroke="rgba(186,186,210,.2)" stroke-width=".38"/>
+        <line x1="37.5" y1="46" x2="42.5" y2="46" stroke="rgba(186,186,210,.2)" stroke-width=".38"/>
+        <line x1="37.5" y1="58" x2="42.5" y2="58" stroke="rgba(186,186,210,.2)" stroke-width=".38"/>
+        <circle cx="40" cy="70" r="6" fill="none" stroke="rgba(184,149,90,.08)" stroke-width=".5"/>
+        <circle cx="40" cy="70" r="3.5" fill="none" stroke="rgba(184,149,90,.2)" stroke-width=".5"/>
+        <line x1="33" y1="70" x2="47" y2="70" stroke="rgba(184,149,90,.3)" stroke-width=".4"/>
+        <line x1="40" y1="63" x2="40" y2="77" stroke="rgba(184,149,90,.3)" stroke-width=".4"/>
+        <circle cx="40" cy="70" r="1.6" fill="rgba(184,149,90,.88)"/>
+        <circle cx="23" cy="20" r=".8" fill="rgba(184,149,90,.22)"/>
+        <circle cx="57" cy="20" r=".8" fill="rgba(184,149,90,.22)"/>
+      </svg>
+      <h1 class="hero-name">Blackwell</h1>
+      <div class="hero-motto">
+        <div class="motto-rule"></div>
+        <span>Ex Profundis Manat</span>
+        <div class="motto-rule"></div>
+      </div>
+      <div style="margin:6px 0 2px;display:flex;justify-content:center;">
+        <svg width="8" height="8" viewBox="0 0 8 8"><polygon points="4,0 8,4 4,8 0,4" fill="rgba(184,149,90,0.65)"/></svg>
+      </div>
+      <div class="hero-depth">
+        <span class="hero-depth-n">5,080</span>
+        <span class="hero-depth-s">Feet Below the Surface · Copper Ridge Dolomite</span>
+      </div>
+      <p style="font-family:'Cinzel',serif;font-size:7px;font-weight:400;letter-spacing:.38em;text-indent:.38em;color:rgba(62,52,40,.55);text-transform:uppercase;margin-top:14px;">Natural Mineral Water</p>
+    </div>
+    <div class="scroll-cue">
+      <span>Descend</span>
+      <div class="scroll-line"></div>
+    </div>
+  </section>
+  <section id="origin" style="gap:64px;">
+    <div style="max-width:600px;text-align:center;">
+      <p class="eyebrow reveal">The Origin</p>
+      <h2 class="section-heading reveal reveal-d1">The deepest known artesian source in the United States.</h2>
+      <p class="section-body reveal reveal-d2">Drawn from a sealed Cambrian aquifer more than a mile beneath the surface of Tennessee — filtered through ancient rock over centuries, untouched by human activity. State and federal geologists have confirmed what the water itself makes clear: there is nothing else like it.<br><br>Sealed for over 400 million years. No treatment. No compromise. This is living water.</p>
+    </div>
+    <div class="stats-row reveal reveal-d3">
+      <div class="stat"><p class="stat-label">pH at Source</p><p class="stat-n">8.3</p></div>
+      <div class="stat-div"></div>
+      <div class="stat"><p class="stat-label">Formation Age</p><p class="stat-n">500M</p><p class="stat-sub">Years</p></div>
+      <div class="stat-div"></div>
+      <div class="stat"><p class="stat-label">Source Depth</p><p class="stat-n">5,080</p><p class="stat-sub">Feet</p></div>
+      <div class="stat-div"></div>
+      <div class="stat"><p class="stat-label">Contaminants</p><p class="stat-n">Zero</p></div>
+    </div>
+  </section>
+  <section id="claims">
+    <div class="claims-inner">
+      <p class="claims-eyebrow reveal">Confirmed absent</p>
+      <div class="claims-grid">
+        <div class="claim reveal reveal-d1">
+          <span class="claim-n">Tritium</span>
+          <span class="claim-l">Radioactive Isotope</span>
+          <p class="claim-b">Present in every surface-connected water source on earth. Absent in Blackwell — sealed a mile below any surface contact.</p>
+        </div>
+        <div class="claim-div"></div>
+        <div class="claim reveal reveal-d2">
+          <span class="claim-n">PFAS</span>
+          <span class="claim-l">Forever Chemicals</span>
+          <p class="claim-b">Estimated in the drinking water of over 200 million Americans. Blackwell's source predates their existence by 400 million years.</p>
+        </div>
+        <div class="claim-div"></div>
+        <div class="claim reveal reveal-d3">
+          <span class="claim-n">Plastics</span>
+          <span class="claim-l">Microplastics</span>
+          <p class="claim-b">Found in 83% of major metropolitan water supplies and 11 of the largest global bottled water brands. Not in Blackwell.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+  <section id="order">
+    <div class="order-inner">
+      <p class="eyebrow reveal">Reserve Your Allocation</p>
+      <h2 class="section-heading reveal reveal-d1">Order Blackwell</h2>
+      <p class="section-body reveal reveal-d2" style="margin-bottom:48px;">Available by allocation only. Select your format, complete your details, and our team will be in touch within one business day.</p>
+      <div class="product-grid reveal reveal-d3" id="productGrid">
+        <div class="product" onclick="selectProduct(this,'750ml Still — Single Bottle','$14')">
+          <p class="product-name">Single</p>
+          <p class="product-desc">750ml Still<br>Hand-filled at source</p>
+          <p class="product-price">$14</p>
+          <span class="product-qty">Per bottle</span>
+        </div>
+        <div class="product" onclick="selectProduct(this,'Case of 12 — Still','$144')">
+          <p class="product-name">Case</p>
+          <p class="product-desc">12 × 750ml Still<br>Monthly subscription available</p>
+          <p class="product-price">$144</p>
+          <span class="product-qty">12 bottles</span>
+        </div>
+        <div class="product" onclick="selectProduct(this,'Private Allocation — 36 Bottles','$384')">
+          <p class="product-name">Allocation</p>
+          <p class="product-desc">36 × 750ml Still<br>Quarterly private reserve</p>
+          <p class="product-price">$384</p>
+          <span class="product-qty">36 bottles</span>
+        </div>
+      </div>
+      <div class="order-form reveal reveal-d4" id="orderForm">
+        <p class="order-form-title">Your Details</p>
+        <div class="form-selection" id="formSelection">Select a product above to continue</div>
+        <div class="form-row">
+          <div class="form-field">
+            <label class="field-label">First Name</label>
+            <input class="field-input" id="fname" type="text" placeholder="James"/>
+          </div>
+          <div class="form-field">
+            <label class="field-label">Last Name</label>
+            <input class="field-input" id="lname" type="text" placeholder="Whitmore"/>
+          </div>
+        </div>
+        <div class="form-field full">
+          <label class="field-label">Email Address</label>
+          <input class="field-input" id="email" type="email" placeholder="you@example.com"/>
+        </div>
+        <div class="form-field full">
+          <label class="field-label">Phone</label>
+          <input class="field-input" id="phone" type="tel" placeholder="+1 (615) 000 0000"/>
+        </div>
+        <div class="form-field full">
+          <label class="field-label">Delivery Address</label>
+          <input class="field-input" id="address" type="text" placeholder="Street address, city, state, zip"/>
+        </div>
+        <div class="form-field full">
+          <label class="field-label">Notes</label>
+          <textarea class="field-textarea" id="notes" placeholder="Gift packaging, subscription preferences, special instructions..."></textarea>
+        </div>
+        <button class="submit-btn" onclick="submitOrder()">Submit Order Request</button>
+        <p class="form-note">You will not be charged at this stage. We will send a secure payment link within one business day.</p>
+      </div>
+      <div class="order-success" id="orderSuccess">
+        <p class="success-heading">Request Received</p>
+        <p class="success-body" id="successBody"></p>
+      </div>
+    </div>
+  </section>
+  <section id="story">
+    <div class="story-inner">
+      <div class="rule-h reveal"></div>
+      <div class="diamond reveal reveal-d1" style="margin:18px auto;"></div>
+      <p class="story-quote reveal reveal-d2">"The deepest known artesian source<br>in the United States.<br>Sealed for over 400 million years."</p>
+      <div class="diamond reveal reveal-d3" style="margin:18px auto;"></div>
+      <div class="rule-h reveal reveal-d3"></div>
+      <p class="story-sub reveal reveal-d4" style="margin-top:36px;">FDA Approved &nbsp;·&nbsp; EPA Verified &nbsp;·&nbsp; NSF Certified</p>
+    </div>
+  </section>
+  <footer>
+    <span class="f-brand">Blackwell</span>
+    <a href="https://drinkblackwell.com" class="f-url">drinkblackwell.com</a>
+    <span class="f-cert">Copper Ridge Dolomite · Cambrian Formation · Tennessee</span>
+  </footer>
+</div>
+<script>
+const CODES = new Set([
+  'BW-2024-001','BW-2024-002','BW-2024-003','BW-2024-004','BW-2024-005',
+  'BW-2024-006','BW-2024-007','BW-2024-008','BW-2024-009','BW-2024-010',
+  'BW-2024-011','BW-2024-012','BW-2024-013','BW-2024-014','BW-2024-015',
+  'BLACKWELL','DEEPWATER','EX-PROFUNDIS',
+]);
+function attemptUnlock() {
+  const raw = document.getElementById('codeInput').value.trim().toUpperCase();
+  const err = document.getElementById('codeError');
+  if (!raw) { flashError(err, 'Please enter your bottle code'); return; }
+  if (CODES.has(raw)) {
+    sessionStorage.setItem('bw_access', '1');
+    sessionStorage.setItem('bw_code', raw);
+    document.getElementById('gate').classList.add('unlocked');
+    setTimeout(() => {
+      document.getElementById('gate').style.display = 'none';
+      document.getElementById('site').classList.add('visible');
+      initSite();
+    }, 950);
+  } else {
+    flashError(err, 'That code was not recognised');
+    document.getElementById('codeInput').value = '';
+    document.getElementById('codeInput').focus();
+  }
+}
+function flashError(el, msg) {
+  el.textContent = msg;
+  el.classList.remove('show');
+  void el.offsetWidth;
+  el.classList.add('show');
+}
+document.getElementById('codeInput').addEventListener('keydown', e => {
+  if (e.key === 'Enter') attemptUnlock();
+});
+function showWaitingRoom() {
+  document.getElementById('panelCode').classList.add('hidden');
+  document.getElementById('panelWait').classList.remove('hidden');
+}
+function showCodePanel() {
+  document.getElementById('panelWait').classList.add('hidden');
+  document.getElementById('panelCode').classList.remove('hidden');
+}
+function submitWaitlist() {
+  const name  = document.getElementById('wName').value.trim();
+  const email = document.getElementById('wEmail').value.trim();
+  const src   = document.getElementById('wSource').value;
+  if (!name)  { alert('Please enter your name.'); return; }
+  if (!email || !email.includes('@')) { alert('Please enter a valid email address.'); return; }
+  const subject = encodeURIComponent('Blackwell Waitlist Request');
+  const body = encodeURIComponent(`WAITLIST REQUEST — BLACKWELL\n\nName:   ${name}\nEmail:  ${email}\nSource: ${src || '—'}\n`);
+  window.location.href = `mailto:hello@drinkblackwell.com?subject=${subject}&body=${body}`;
+  document.getElementById('waitFormWrap').style.display = 'none';
+  const s = document.getElementById('waitSuccess');
+  const first = name.split(' ')[0];
+  document.getElementById('waitSuccessName').textContent = first + '.';
+  s.classList.add('show');
+}
+if (sessionStorage.getItem('bw_access') === '1') {
+  document.getElementById('gate').style.display = 'none';
+  document.getElementById('site').classList.add('visible');
+  initSite();
+}
+function initSite() {
+  const cur  = document.getElementById('cur');
+  const ring = document.getElementById('cur-ring');
+  let mx=0,my=0,rx=0,ry=0;
+  document.addEventListener('mousemove', e => { mx=e.clientX; my=e.clientY; });
+  (function anim() {
+    cur.style.left=mx+'px'; cur.style.top=my+'px';
+    rx+=(mx-rx)*.12; ry+=(my-ry)*.12;
+    ring.style.left=rx+'px'; ring.style.top=ry+'px';
+    requestAnimationFrame(anim);
+  })();
+  const io = new IntersectionObserver(es => {
+    es.forEach(e => { if(e.isIntersecting){ e.target.classList.add('visible'); io.unobserve(e.target); } });
+  }, { threshold:.12 });
+  document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+  let lastY=0;
+  const nav = document.getElementById('nav');
+  window.addEventListener('scroll', () => {
+    const y = window.scrollY;
+    nav.style.opacity = (y>lastY && y>80) ? '0' : '1';
+    nav.style.transition = 'opacity .5s';
+    lastY = y;
+  });
+}
+let selectedProduct = null;
+function selectProduct(el, name, price) {
+  document.querySelectorAll('.product').forEach(p => p.classList.remove('selected'));
+  el.classList.add('selected');
+  selectedProduct = { name, price };
+  document.getElementById('formSelection').innerHTML = `<strong>${name}</strong> &nbsp;·&nbsp; ${price}`;
+}
+function submitOrder() {
+  const fname   = document.getElementById('fname').value.trim();
+  const lname   = document.getElementById('lname').value.trim();
+  const email   = document.getElementById('email').value.trim();
+  const phone   = document.getElementById('phone').value.trim();
+  const address = document.getElementById('address').value.trim();
+  const notes   = document.getElementById('notes').value.trim();
+  const code    = sessionStorage.getItem('bw_code') || '';
+  if (!selectedProduct) { alert('Please select a product above.'); return; }
+  if (!fname || !lname) { alert('Please enter your name.'); return; }
+  if (!email || !email.includes('@')) { alert('Please enter a valid email address.'); return; }
+  if (!address) { alert('Please enter a delivery address.'); return; }
+  const subject = encodeURIComponent(`Blackwell Order — ${fname} ${lname}`);
+  const body = encodeURIComponent(`NEW ORDER — BLACKWELL\n\nProduct:  ${selectedProduct.name}\nPrice:    ${selectedProduct.price}\nCode:     ${code}\n\nCustomer: ${fname} ${lname}\nEmail:    ${email}\nPhone:    ${phone || '—'}\nAddress:  ${address}\nNotes:    ${notes || '—'}\n`);
+  window.location.href = `mailto:orders@drinkblackwell.com?subject=${subject}&body=${body}`;
+  document.getElementById('productGrid').style.display = 'none';
+  document.getElementById('orderForm').style.display   = 'none';
+  const s = document.getElementById('orderSuccess');
+  s.classList.add('show');
+  document.getElementById('successBody').innerHTML = `Thank you, ${fname}.<br><br>Your request for <em>${selectedProduct.name}</em> has been received. We will contact you at ${email} within one business day with a secure payment link.`;
+}
+</script>
+</body>
+</html>
