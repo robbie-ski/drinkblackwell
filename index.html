@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Blackwell — The World's Deepest Artesian Source</title>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Jost:wght@100;200;300&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --black: #05050a;
+  --gold:  #b8955a;
+  --gd:    rgba(184,149,90,.35);
+  --gs:    rgba(184,149,90,.12);
+  --text:  #dcd4bc;
+  --muted: #7a7060;
+  --dim:   #3e3428;
+  --plat:  rgba(186,186,210,.5);
+}
+html { scroll-behavior: smooth; }
+body {
+  background: var(--black);
+  color: var(--text);
+  font-family: 'Jost', sans-serif;
+  font-weight: 100;
+  overflow-x: hidden;
+  cursor: none;
+}
+body::before {
+  content: '';
+  position: fixed; inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.04'/%3E%3C/svg%3E");
+  pointer-events: none; z-index: 9000; opacity: .55;
+}
+.cursor      { position:fixed;width:6px;height:6px;background:var(--gold);border-radius:50%;pointer-events:none;z-index:9999;transform:translate(-50%,-50%); }
+.cursor-ring { position:fixed;width:28px;height:28px;border:.5px solid rgba(184,149,90,.4);border-radius:50%;pointer-events:none;z-index:9998;transform:translate(-50%,-50%);transition:width .25s,height .25s; }
+#gate {
+  position: fixed; inset: 0;
+  background: var(--black);
+  z-index: 8000;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  transition: opacity .9s cubic-bezier(.22,.68,0,1), transform .9s cubic-bezier(.22,.68,0,1);
+  overflow: hidden;
+}
+#gate.unlocked { opacity:0; transform:translateY(-20px); pointer-events:none; }
+.gate-strata { position:absolute;inset:0;overflow:hidden; }
+.gate-strata svg { width:100%;height:100%;opacity:.038; }
+.gate-bore {
+  position:absolute;left:50%;top:0;width:.5px;
+  background:linear-gradient(180deg,transparent 0%,var(--plat) 30%,var(--plat) 70%,transparent 100%);
+  transform:translateX(-50%);height:100vh;opacity:.38;
+}
+.gate-brand {
+  display:flex;flex-direction:column;align-items:center;
+  animation: g-rise .9s .1s cubic-bezier(.22,.68,0,1.1) both;
+}
+@keyframe
